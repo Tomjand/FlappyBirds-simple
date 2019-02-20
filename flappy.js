@@ -4,7 +4,7 @@ let ctx = canvas.getContext("2d");
 let posY = 50;
 let gravity = 0.05;
 let velocity = 0;
-let jump = -4  ;
+let jump = -4;
 
 let bird = new Image();
 let background = new Image();
@@ -16,10 +16,9 @@ function draw() {
   ctx.drawImage(background, 0, 0);
   ctx.drawImage(bird, 50, posY);
   velocity += gravity;
-  
-  if (posY>background.height-bird.height){
-    posY = background.height-bird.height;
-    velocity = 0;
+
+  if (posY>background.height-bird.height || posY<0){
+    velocity = 0; //stop game
   }
   posY = posY + velocity;
 
