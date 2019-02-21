@@ -87,7 +87,6 @@ restartBtn.addEventListener("click", function() {
   //animacja start;
   velocity = 0;
   requestAnimationFrame(draw);
-  console.log("CLICK_RESET:", velocity);
   this.blur();
 });
 
