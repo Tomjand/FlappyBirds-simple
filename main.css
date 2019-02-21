@@ -1,0 +1,14 @@
+#canvas {
+    margin: 30px 0;
+}
+.btn_stop {
+    position: absolute;
+    top:10;
+    left:10;
+}
+
+.btn_restart {
+    position: absolute;
+    top:10;
+    left:100;
+}
