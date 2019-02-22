@@ -1,4 +1,6 @@
-//part-05 - Zliczanie ominiętych przeszkód (pipeBottom) i ich wyświetlanie:
+//part-07 - Dodano:
+//1. wyświetlanie pipeTop
+//2. losowa wspol. Y dla pipeBottom i pipeTop 
 
 const stopBtn = document.querySelector("#stopGame");
 const restartBtn = document.querySelector("#restartGame");
