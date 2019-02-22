@@ -71,7 +71,7 @@ function draw() {
 	velocity += gravity;
 	ctx.fillText("Score: " +  score  , 100, 20);
 	if (birdPosY > background.height - bird.height || birdPosY < 0) {
-		velocity = 0; //stop bird move
+		velocity = 0; //stop bird move  
 		cancelAnimationFrame(requestID); //stop game
 	}
 	birdPosY = birdPosY + velocity;
