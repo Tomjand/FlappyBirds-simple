@@ -6,12 +6,14 @@ const restartBtn = document.querySelector("#restartGame");
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
+//ustawia rodzaj i wielkosc czcionki dla ctx
 ctx.font = "16px Arial";
 let birdPosY = 50;
 let birdPosX = 30;
 let gravity = 0.06;
 let velocity = 0;
 let jump = -3;
+//zmienna score do zliczania punktów
 let score = 0;
 
 let bird = new Image();
@@ -71,7 +73,7 @@ function draw() {
 	velocity += gravity;
 	ctx.fillText("Score: " +  score  , 100, 20);
 	if (birdPosY > background.height - bird.height || birdPosY < 0) {
-		velocity = 0; //stop bird move  
+		velocity = 0; //stop bird move
 		cancelAnimationFrame(requestID); //stop game
 	}
 	birdPosY = birdPosY + velocity;
