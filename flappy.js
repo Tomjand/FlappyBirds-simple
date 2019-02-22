@@ -6,12 +6,13 @@ const restartBtn = document.querySelector("#restartGame");
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
-
+ctx.font = "16px Arial";
 let birdPosY = 50;
-let birdPosX = 50;
+let birdPosX = 30;
 let gravity = 0.06;
 let velocity = 0;
 let jump = -3;
+let score = 0;
 
 let bird = new Image();
 let background = new Image();
@@ -54,6 +55,8 @@ function draw() {
 		) {
 			cancelAnimationFrame(requestID);
 		}
+		//zlicza wynik czyli ilosc minietych przeszkod
+		if (pipes[i].x == 0) { score++;}
 		//usuwa pipeBottom ktory wyjechal z ekranu
 		if (pipes[i].x <= -400) {
 			pipes.shift();
@@ -66,9 +69,10 @@ function draw() {
 	}
 
 	velocity += gravity;
-
+	ctx.fillText("Score: " +  score  , 100, 20);
 	if (birdPosY > background.height - bird.height || birdPosY < 0) {
-		velocity = 0; //stop game
+		velocity = 0; //stop bird move
+		cancelAnimationFrame(requestID); //stop game
 	}
 	birdPosY = birdPosY + velocity;
 }
