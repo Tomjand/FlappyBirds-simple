@@ -1,19 +1,4 @@
-<<<<<<< HEAD
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
-
-let background = new Image();
-
-background.src = "images/background.png";
-
-function draw() {
-  ctx.drawImage(background, 0, 0);
-  requestAnimationFrame(draw);
-}
-
-=======
 //part-05 - Zliczanie ominiętych przeszkód (pipeBottom) i ich wyświetlanie:
-
 
 const stopBtn = document.querySelector("#stopGame");
 const restartBtn = document.querySelector("#restartGame");
@@ -109,5 +94,4 @@ restartBtn.addEventListener("click", function() {
 	this.blur();
 });
 
->>>>>>> part-06
 draw();
