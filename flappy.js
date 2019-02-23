@@ -16,15 +16,21 @@ let velocity = 0;
 let jump = -3;
 //zmienna score do zliczania punktów
 let score = 0;
+//wysokosc przerwy pomiedzy pipeBottom i pipeTop
+let gap = 200;
+let max = 350;
+let min = 200;
 
 let bird = new Image();
 let background = new Image();
 let pipeBottom = new Image();
+let pipeTop = new Image();
 let counterFrame = 0;
 
 bird.src = "images/bird.png";
 background.src = "images/background.png";
 pipeBottom.src = `images/pipeBottom.png`;
+pipeTop.src = `images/pipeTop.png`;
 
 const pipes = [
 	{
@@ -39,7 +45,10 @@ function draw() {
 	ctx.drawImage(bird, birdPosX, birdPosY);
 	counterFrame++;
 	for (let i = 0; i < pipes.length; i++) {
-		ctx.drawImage(pipeBottom, pipes[i].x, pipes[i].y); //
+
+		ctx.drawImage(pipeBottom, pipes[i].x, pipes[i].y);
+		//rysuje pipeTop 
+		ctx.drawImage(pipeTop, pipes[i].x, pipes[i].y-pipeTop.height-gap);
 		pipes[i].x--;
 		//detekcja kolizji
 		//uderzenie z gory w pipeBottom
@@ -51,6 +60,7 @@ function draw() {
 			cancelAnimationFrame(requestID);
 		}
 		//uderzenie przodem w pipeBottom
+		//znaleziony problem z kolizja - nie dziala jesli birdPosX<pipes[i].x podczas uderzenia z gory
 		if (
 			birdPosY > pipes[i].y &&
 			birdPosX + bird.width > pipes[i].x + 2 &&
@@ -67,7 +77,11 @@ function draw() {
 	}
 	// co 200 klatek wstaw/dodaj obiekt z nowymi wspolrzednymi dla kolejnego pipeBottom
 	if (counterFrame == 200) {
-		pipes.push({ x: 310, y: 250 });
+		pipes.push({
+			x: 310,
+			//losuje 1 liczbe z zakresu (min, max)
+			y: Math.floor(Math.random() * (max - min) + min)
+		});
 		counterFrame = 1;
 	}
 
