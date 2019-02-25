@@ -2,8 +2,8 @@
 //1. wyświetlanie pipeTop
 //2. losowa wspol. Y dla pipeBottom i pipeTop 
 
-const stopBtn = document.querySelector("#stopGame");
-const restartBtn = document.querySelector("#restartGame");
+const pauseBtn = document.querySelector("#pauseGame");
+const playBtn = document.querySelector("#playGame");
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
@@ -14,6 +14,7 @@ let birdPosX = 30;
 let gravity = 0.06;
 let velocity = 0;
 let jump = -3;
+let pause = false;
 //zmienna score do zliczania punktów
 let score = 0;
 //wysokosc przerwy pomiedzy pipeBottom i pipeTop
@@ -50,24 +51,19 @@ function draw() {
 		//rysuje pipeTop 
 		ctx.drawImage(pipeTop, pipes[i].x, pipes[i].y-pipeTop.height-gap);
 		pipes[i].x--;
-		//detekcja kolizji
-		//uderzenie z gory w pipeBottom
+		//detekcja kolizji - poprawiona kolizja
 		if (
-			pipes[i].x > 0 &&
-			birdPosX > pipes[i].x &&
-			birdPosY + bird.height >= pipes[i].y
+			(pipes[i].x > -pipeBottom.width) &&
+			(
+				( (birdPosX < pipes[i].x) && (birdPosX + bird.width >pipes[i].x) ) ||
+				( (birdPosX > pipes[i].x) && (birdPosX  + bird.width  < pipes[i].x + pipeBottom.width) ) ||
+				( (birdPosX < pipes[i].x + pipeBottom.width) && (birdPosX + bird.width> pipes[i].x + pipeBottom.width) )
+			) &&
+			( (birdPosY + bird.height >= pipes[i].y) || (birdPosY <= pipes[i].y - gap))
 		) {
 			cancelAnimationFrame(requestID);
 		}
-		//uderzenie przodem w pipeBottom
-		//znaleziony problem z kolizja - nie dziala jesli birdPosX<pipes[i].x podczas uderzenia z gory
-		if (
-			birdPosY > pipes[i].y &&
-			birdPosX + bird.width > pipes[i].x + 2 &&
-			pipes[i].x > 0
-		) {
-			cancelAnimationFrame(requestID);
-		}
+		
 		//zlicza wynik czyli ilosc minietych przeszkod
 		if (pipes[i].x == 0) { score++;}
 		//usuwa pipeBottom ktory wyjechal z ekranu
@@ -98,16 +94,20 @@ document.addEventListener("keydown", function() {
 	velocity = velocity + jump;
 });
 
-stopBtn.addEventListener("click", function() {
+pauseBtn.addEventListener("click", function() {
 	// animacja stop;
 	cancelAnimationFrame(requestID);
+	pause = true;
 });
 
-restartBtn.addEventListener("click", function() {
+playBtn.addEventListener("click", function() {
 	//animacja start;
-	velocity = 0;
-	requestAnimationFrame(draw);
+	if ( pause === true ) {
+		velocity = 0;
+		requestAnimationFrame(draw);
+	}
 	this.blur();
+	pause = false;
 });
 
 draw();
