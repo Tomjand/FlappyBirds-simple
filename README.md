@@ -9,5 +9,5 @@ Branch:
 5. part-05: Simple collision with pipeBottom (with small mistake),
 6. part-06: Show score,
 7. part-07: Showing PipeTop and random Y pos,
-8. part-08: Improved collision and Button Pause and Play
+8. part-08: Improved collision and Button Pause and Play,
 
